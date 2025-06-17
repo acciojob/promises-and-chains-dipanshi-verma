@@ -14,18 +14,18 @@ document.getElementById("votingForm").addEventListener("submit", function (e) {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
       if (ageNumber > 18) {
-        resolve();
+        resolve(name);
       } else {
-        reject();
+        reject(name);
       }
     }, 4000);
   });
 
   promise
-    .then(() => {
-      alert(`Welcome, ${name}. You can vote.`);
+    .then((resolvedName) => {
+      alert(`Welcome, ${resolvedName}. You are eligible to vote.`);
     })
-    .catch(() => {
-      alert(`Oh sorry ${name}. You aren't old enough.`);
+    .catch((rejectedName) => {
+      alert(`Oh sorry ${rejectedName}. You are not eligible to vote.`);
     });
 });
