@@ -1,29 +1,24 @@
 document.getElementById("btn").addEventListener("click", function (event) {
-    event.preventDefault(); // Prevent form from reloading the page
+  event.preventDefault(); // Prevent form from refreshing
 
-    const age = document.getElementById("age").value.trim();
-    const name = document.getElementById("name").value.trim();
+  const age = document.getElementById("age").value;
+  const name = document.getElementById("name").value;
 
-    // Check for empty inputs
-    if (age === "" || name === "") {
-        alert("Please enter valid details.");
-        return;
-    }
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Number(age) > 18) {
+        resolve();
+      } else {
+        reject();
+      }
+    }, 4000);
+  });
 
-    // Create and handle the Promise
-    new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (parseInt(age) > 18) {
-                resolve(name);
-            } else {
-                reject(name);
-            }
-        }, 4000);
+  promise
+    .then(() => {
+      alert(`Welcome, ${name}. You can vote.`);
     })
-    .then((resolvedName) => {
-        alert(`Welcome, ${resolvedName}. You can vote.`);
-    })
-    .catch((rejectedName) => {
-        alert(`Oh sorry ${rejectedName}. You aren't old enough.`);
+    .catch(() => {
+      alert(`Oh sorry ${name}. You aren't old enough.`);
     });
 });
